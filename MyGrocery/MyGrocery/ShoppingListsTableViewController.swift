@@ -16,36 +16,7 @@ class ShoppingListsTableViewController: UITableViewController, UITextFieldDelega
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.initializeCoreDataStack()
         self.populateShoppingLists()
-    }
-    
-    func initializeCoreDataStack() {
-        guard let bundleUrl = Bundle.main.url(forResource: "MyGroceryDataModel", withExtension: ".momd") else {
-            fatalError("Could not find MyGroceryDataModel")
-        }
-        
-        guard let managedObjecModel = NSManagedObjectModel(contentsOf: bundleUrl) else {
-            fatalError("Unable to initialize managedObjectModel")
-        }
-        
-        let persistantStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjecModel)
-        
-        let fileManager = FileManager()
-        guard let documentUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
-            fatalError("Unable to get Document Url")
-        }
-        
-        let storeUrl = documentUrl.appendingPathComponent("MyGrocery.sqlite")
-        
-        print(storeUrl)
-        
-        try! persistantStoreCoordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeUrl, options: nil)
-        
-        let concurrencyType = NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType
-        self.managedObjectContext = NSManagedObjectContext(concurrencyType: concurrencyType)
-        self.managedObjectContext.persistentStoreCoordinator = persistantStoreCoordinator
-        
     }
     
     private func populateShoppingLists() {
@@ -83,7 +54,7 @@ class ShoppingListsTableViewController: UITableViewController, UITextFieldDelega
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 44))
-        headerView.backgroundColor = .lightGray
+        headerView.backgroundColor = .lightText
         
         let textField = UITextField(frame: headerView.frame)
         textField.placeholder = "Enter Shopping List"
@@ -129,38 +100,4 @@ class ShoppingListsTableViewController: UITableViewController, UITextFieldDelega
         tableView.isEditing = false
     }
     
-    
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

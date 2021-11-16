@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		60937A2227442745003A4361 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60937A2127442745003A4361 /* CoreDataManager.swift */; };
 		60A236B42743ADB30025261A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A236B32743ADB30025261A /* AppDelegate.swift */; };
 		60A236B62743ADB30025261A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A236B52743ADB30025261A /* SceneDelegate.swift */; };
 		60A236BB2743ADB30025261A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60A236B92743ADB30025261A /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		60937A2127442745003A4361 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		60A236B02743ADB30025261A /* MyGrocery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyGrocery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60A236B32743ADB30025261A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		60A236B52743ADB30025261A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				60A236BC2743ADB40025261A /* Assets.xcassets */,
 				60A236BE2743ADB40025261A /* LaunchScreen.storyboard */,
 				60A236C12743ADB40025261A /* Info.plist */,
+				60937A2127442745003A4361 /* CoreDataManager.swift */,
 			);
 			path = MyGrocery;
 			sourceTree = "<group>";
@@ -143,6 +146,7 @@
 				60A236B42743ADB30025261A /* AppDelegate.swift in Sources */,
 				60A236CA2743AF180025261A /* ShoppingListsTableViewController.swift in Sources */,
 				60A236B62743ADB30025261A /* SceneDelegate.swift in Sources */,
+				60937A2227442745003A4361 /* CoreDataManager.swift in Sources */,
 				60A236CE2743BA2F0025261A /* MyGroceryDataModel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
