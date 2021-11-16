@@ -8,14 +8,16 @@
 import UIKit
 import CoreData
 
-class ShoppingListsTableViewController: UITableViewController {
+class ShoppingListsTableViewController: UITableViewController, UITextFieldDelegate, NSFetchedResultsControllerDelegate {
 
     var managedObjectContext: NSManagedObjectContext!
+    var fetchResultsController: NSFetchedResultsController<ShoppingList>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.initializeCoreDataStack()
+        self.populateShoppingLists()
     }
     
     func initializeCoreDataStack() {
@@ -24,17 +26,19 @@ class ShoppingListsTableViewController: UITableViewController {
         }
         
         guard let managedObjecModel = NSManagedObjectModel(contentsOf: bundleUrl) else {
-            fatalError("Could not create ManagedObjectModel")
+            fatalError("Unable to initialize managedObjectModel")
         }
         
         let persistantStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjecModel)
         
         let fileManager = FileManager()
         guard let documentUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
-            fatalError("Could not find Document Url")
+            fatalError("Unable to get Document Url")
         }
         
         let storeUrl = documentUrl.appendingPathComponent("MyGrocery.sqlite")
+        
+        print(storeUrl)
         
         try! persistantStoreCoordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeUrl, options: nil)
         
@@ -44,6 +48,34 @@ class ShoppingListsTableViewController: UITableViewController {
         
     }
     
+    private func populateShoppingLists() {
+        let request = NSFetchRequest<ShoppingList>(entityName: "ShoppingList")
+        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+        
+        fetchResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        fetchResultsController.delegate = self
+        try! fetchResultsController.performFetch()
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        if type == .insert {
+            self.tableView.insertRows(at: [newIndexPath!], with: .automatic)
+        } else  if type == .delete {
+            self.tableView.deleteRows(at: [indexPath!], with: .automatic)
+        }
+        
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        let shoppingList = NSEntityDescription.insertNewObject(forEntityName: "ShoppingList", into: self.managedObjectContext) as! ShoppingList
+        shoppingList.title = textField.text
+        try! self.managedObjectContext.save()
+        textField.text = ""
+        
+        return textField.resignFirstResponder()
+    }
+    
     // MARK:- Table View delegates
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 44
@@ -51,13 +83,15 @@ class ShoppingListsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 44))
+        headerView.backgroundColor = .lightGray
         
-        let textView = UITextField(frame: headerView.frame)
-        textView.placeholder = "Enter Shopping List"
-        textView.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
-        textView.leftViewMode = .always
+        let textField = UITextField(frame: headerView.frame)
+        textField.placeholder = "Enter Shopping List"
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
+        textField.leftViewMode = .always
+        textField.delegate = self
         
-        headerView.addSubview(textView)
+        headerView.addSubview(textField)
         
         return headerView
     }
@@ -68,36 +102,39 @@ class ShoppingListsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        guard let sections = fetchResultsController.sections else {
+            return 0
+        }
+        
+        return sections[section].numberOfObjects
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let shoppingList = fetchResultsController.object(at: indexPath)
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        cell.textLabel?.text = shoppingList.title
+        
         return cell
     }
-    */
-
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let shoppingList = fetchResultsController.object(at: indexPath)
+            
+            self.managedObjectContext.delete(shoppingList)
+            try! self.managedObjectContext.save()
+        }
+        
+        tableView.isEditing = false
+    }
+    
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
     }
     */
 
