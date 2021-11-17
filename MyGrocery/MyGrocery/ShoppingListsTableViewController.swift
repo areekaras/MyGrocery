@@ -56,18 +56,5 @@ class ShoppingListsTableViewController: UITableViewController, UITextFieldDelega
         return headerView
     }
 
-    // MARK: - Table view data source
-    
-    
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            let shoppingList = dataProvider.object(at: indexPath)
-            
-            self.managedObjectContext.delete(shoppingList)
-            try! self.managedObjectContext.save()
-        }
-        
-        tableView.isEditing = false
-    }
     
 }

@@ -19,11 +19,15 @@ class ShoppingListDataSource: NSObject, UITableViewDataSource, ShoppingListDataP
         self.dataProvider = dataProvider
         
         super.init()
-        self.dataProvider.providerDelegate = self
+        self.dataProvider.delegate = self
     }
     
-    func shoppingListDataInsert(at indexPaths: [IndexPath]) {
-        tableView.insertRows(at: indexPaths, with: .automatic)
+    func shoppingListDataProviderDidInsert(at indexPath: IndexPath) {
+        tableView.insertRows(at: [indexPath], with: .automatic)
+    }
+    
+    func shoppingListDataProviderDidDelete(at indexPath: IndexPath) {
+        tableView.deleteRows(at: [indexPath], with: .automatic)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -41,5 +45,13 @@ class ShoppingListDataSource: NSObject, UITableViewDataSource, ShoppingListDataP
         cell.textLabel?.text = shoppingList.title
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            dataProvider.deleteObject(at: indexPath)
+        }
+        
+        tableView.isEditing = false
     }
 }

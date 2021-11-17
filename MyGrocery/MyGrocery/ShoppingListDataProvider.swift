@@ -9,19 +9,23 @@ import Foundation
 import CoreData
 
 protocol ShoppingListDataProviderDelegate: class {
-    func shoppingListDataInsert(at indexPaths: [IndexPath])
+    func shoppingListDataProviderDidInsert(at indexPath: IndexPath)
+    func shoppingListDataProviderDidDelete(at indexPath: IndexPath)
 }
 
 class ShoppingListDataProvider: NSObject, NSFetchedResultsControllerDelegate {
     
     let fetchResultsController: NSFetchedResultsController<ShoppingList>!
-    weak var providerDelegate: ShoppingListDataProviderDelegate!
+    let managedObjectContext: NSManagedObjectContext!
+    weak var delegate: ShoppingListDataProviderDelegate!
     
     var sections: [NSFetchedResultsSectionInfo]? {
         return fetchResultsController.sections
     }
     
     init(managedObjectContext: NSManagedObjectContext) {
+        self.managedObjectContext = managedObjectContext
+        
         let request = NSFetchRequest<ShoppingList>(entityName: "ShoppingList")
         request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
         
@@ -36,8 +40,20 @@ class ShoppingListDataProvider: NSObject, NSFetchedResultsControllerDelegate {
         return fetchResultsController.object(at: indexPath)
     }
     
+    func deleteObject(at indexPath: IndexPath) {
+        let shoppingList = object(at: indexPath)
+        
+        self.managedObjectContext.delete(shoppingList)
+        try! self.managedObjectContext.save()
+    }
+    
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         
-        providerDelegate.shoppingListDataInsert(at: [newIndexPath!])
+        if type == .insert {
+            delegate.shoppingListDataProviderDidInsert(at: newIndexPath!)
+        } else {
+            delegate.shoppingListDataProviderDidDelete(at: indexPath!)
+        }
+        
     }
 }
