@@ -15,6 +15,7 @@
 		60A236C02743ADB40025261A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60A236BE2743ADB40025261A /* LaunchScreen.storyboard */; };
 		60A236CA2743AF180025261A /* ShoppingListsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A236C92743AF180025261A /* ShoppingListsTableViewController.swift */; };
 		60A236CE2743BA2F0025261A /* MyGroceryDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 60A236CC2743BA2F0025261A /* MyGroceryDataModel.xcdatamodeld */; };
+		60B1260D2744C558002514B7 /* ShoppingListDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B1260C2744C558002514B7 /* ShoppingListDataProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		60A236C12743ADB40025261A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		60A236C92743AF180025261A /* ShoppingListsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListsTableViewController.swift; sourceTree = "<group>"; };
 		60A236CD2743BA2F0025261A /* MyGroceryDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyGroceryDataModel.xcdatamodel; sourceTree = "<group>"; };
+		60B1260C2744C558002514B7 /* ShoppingListDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListDataProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 			children = (
 				60A236B32743ADB30025261A /* AppDelegate.swift */,
 				60A236B52743ADB30025261A /* SceneDelegate.swift */,
+				60B1260C2744C558002514B7 /* ShoppingListDataProvider.swift */,
 				60A236B92743ADB30025261A /* Main.storyboard */,
 				60A236C92743AF180025261A /* ShoppingListsTableViewController.swift */,
 				60A236CC2743BA2F0025261A /* MyGroceryDataModel.xcdatamodeld */,
@@ -145,6 +148,7 @@
 			files = (
 				60A236B42743ADB30025261A /* AppDelegate.swift in Sources */,
 				60A236CA2743AF180025261A /* ShoppingListsTableViewController.swift in Sources */,
+				60B1260D2744C558002514B7 /* ShoppingListDataProvider.swift in Sources */,
 				60A236B62743ADB30025261A /* SceneDelegate.swift in Sources */,
 				60937A2227442745003A4361 /* CoreDataManager.swift in Sources */,
 				60A236CE2743BA2F0025261A /* MyGroceryDataModel.xcdatamodeld in Sources */,

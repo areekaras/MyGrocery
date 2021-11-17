@@ -8,10 +8,10 @@
 import UIKit
 import CoreData
 
-class ShoppingListsTableViewController: UITableViewController, UITextFieldDelegate, NSFetchedResultsControllerDelegate {
+class ShoppingListsTableViewController: UITableViewController, UITextFieldDelegate {
 
     var managedObjectContext: NSManagedObjectContext!
-    var fetchResultsController: NSFetchedResultsController<ShoppingList>!
+    var dataProvider: ShoppingListDataProvider!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,23 +20,9 @@ class ShoppingListsTableViewController: UITableViewController, UITextFieldDelega
     }
     
     private func populateShoppingLists() {
-        let request = NSFetchRequest<ShoppingList>(entityName: "ShoppingList")
-        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
-        
-        fetchResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
-        fetchResultsController.delegate = self
-        try! fetchResultsController.performFetch()
+        self.dataProvider = ShoppingListDataProvider(managedObjectContext: self.managedObjectContext)
     }
-    
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        if type == .insert {
-            self.tableView.insertRows(at: [newIndexPath!], with: .automatic)
-        } else  if type == .delete {
-            self.tableView.deleteRows(at: [indexPath!], with: .automatic)
-        }
         
-    }
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         let shoppingList = NSEntityDescription.insertNewObject(forEntityName: "ShoppingList", into: self.managedObjectContext) as! ShoppingList
@@ -73,7 +59,7 @@ class ShoppingListsTableViewController: UITableViewController, UITextFieldDelega
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let sections = fetchResultsController.sections else {
+        guard let sections = dataProvider.sections else {
             return 0
         }
         
@@ -81,7 +67,7 @@ class ShoppingListsTableViewController: UITableViewController, UITextFieldDelega
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let shoppingList = fetchResultsController.object(at: indexPath)
+        let shoppingList = dataProvider.object(at: indexPath)
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         cell.textLabel?.text = shoppingList.title
@@ -91,7 +77,7 @@ class ShoppingListsTableViewController: UITableViewController, UITextFieldDelega
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let shoppingList = fetchResultsController.object(at: indexPath)
+            let shoppingList = dataProvider.object(at: indexPath)
             
             self.managedObjectContext.delete(shoppingList)
             try! self.managedObjectContext.save()
