@@ -12,6 +12,7 @@ class ShoppingListsTableViewController: UITableViewController, UITextFieldDelega
 
     var managedObjectContext: NSManagedObjectContext!
     var dataProvider: ShoppingListDataProvider!
+    var dataSource: ShoppingListDataSource!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +22,8 @@ class ShoppingListsTableViewController: UITableViewController, UITextFieldDelega
     
     private func populateShoppingLists() {
         self.dataProvider = ShoppingListDataProvider(managedObjectContext: self.managedObjectContext)
+        self.dataSource = ShoppingListDataSource(cellIdentifier: "ShoppingListTableViewCell", tableView: self.tableView, dataProvider: self.dataProvider)
+        self.tableView.dataSource = self.dataSource
     }
         
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -54,26 +57,7 @@ class ShoppingListsTableViewController: UITableViewController, UITextFieldDelega
     }
 
     // MARK: - Table view data source
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let sections = dataProvider.sections else {
-            return 0
-        }
-        
-        return sections[section].numberOfObjects
-    }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let shoppingList = dataProvider.object(at: indexPath)
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = shoppingList.title
-        
-        return cell
-    }
+    
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {

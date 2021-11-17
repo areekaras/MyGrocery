@@ -26,7 +26,7 @@ class CoreDataManager {
             fatalError("Unable to find Document Url")
         }
         let storeUrl = documentUrl.appendingPathComponent("MyGrocery.sqlite")
-        print(storeUrl)
+//        print(storeUrl)
         
         try! persistantStoreCoordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeUrl, options: nil)
         

@@ -8,21 +8,26 @@
 import Foundation
 import CoreData
 
+protocol ShoppingListDataProviderDelegate: class {
+    func shoppingListDataInsert(at indexPaths: [IndexPath])
+}
+
 class ShoppingListDataProvider: NSObject, NSFetchedResultsControllerDelegate {
     
-    var fetchResultsController: NSFetchedResultsController<ShoppingList>!
+    let fetchResultsController: NSFetchedResultsController<ShoppingList>!
+    weak var providerDelegate: ShoppingListDataProviderDelegate!
     
     var sections: [NSFetchedResultsSectionInfo]? {
         return fetchResultsController.sections
     }
     
     init(managedObjectContext: NSManagedObjectContext) {
-        super.init()
-        
         let request = NSFetchRequest<ShoppingList>(entityName: "ShoppingList")
         request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
         
         fetchResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        
+        super.init()
         fetchResultsController.delegate = self
         try! fetchResultsController.performFetch()
     }
@@ -32,5 +37,7 @@ class ShoppingListDataProvider: NSObject, NSFetchedResultsControllerDelegate {
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        
+        providerDelegate.shoppingListDataInsert(at: [newIndexPath!])
     }
 }
