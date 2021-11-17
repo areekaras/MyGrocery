@@ -11,8 +11,8 @@ import CoreData
 class ShoppingListsTableViewController: UITableViewController, UITextFieldDelegate {
 
     var managedObjectContext: NSManagedObjectContext!
-    var dataProvider: ShoppingListDataProvider!
-    var dataSource: ShoppingListDataSource!
+    var dataProvider: FetchedResultsProvider<ShoppingList>!
+    var dataSource: TableViewDataSource<UITableViewCell, ShoppingList>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,8 +21,10 @@ class ShoppingListsTableViewController: UITableViewController, UITextFieldDelega
     }
     
     private func populateShoppingLists() {
-        self.dataProvider = ShoppingListDataProvider(managedObjectContext: self.managedObjectContext)
-        self.dataSource = ShoppingListDataSource(cellIdentifier: "ShoppingListTableViewCell", tableView: self.tableView, dataProvider: self.dataProvider)
+        self.dataProvider = FetchedResultsProvider(managedObjectContext: self.managedObjectContext)
+        self.dataSource = TableViewDataSource(cellIdentifier: "ShoppingListTableViewCell", tableView: self.tableView, dataProvider: self.dataProvider) { (cell, shoppingList) in
+            cell.textLabel?.text = shoppingList.title
+        }
         self.tableView.dataSource = self.dataSource
     }
     

@@ -51,7 +51,7 @@ class ShoppingListDataProvider: NSObject, NSFetchedResultsControllerDelegate {
         
         if type == .insert {
             delegate.shoppingListDataProviderDidInsert(at: newIndexPath!)
-        } else {
+        } else if type == .delete {
             delegate.shoppingListDataProviderDidDelete(at: indexPath!)
         }
         

@@ -18,6 +18,10 @@
 		60B1260D2744C558002514B7 /* ShoppingListDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B1260C2744C558002514B7 /* ShoppingListDataProvider.swift */; };
 		60B126102744C914002514B7 /* ShoppingListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B1260F2744C914002514B7 /* ShoppingListDataSource.swift */; };
 		60DE48052744F12700948BB9 /* AddNewItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DE48042744F12700948BB9 /* AddNewItemView.swift */; };
+		60DE4808274529A100948BB9 /* FetchedResultsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DE4807274529A100948BB9 /* FetchedResultsProvider.swift */; };
+		60DE480B274531C500948BB9 /* ManagedObjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DE480A274531C500948BB9 /* ManagedObjectType.swift */; };
+		60DE480E2745374C00948BB9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DE480D2745374C00948BB9 /* Extensions.swift */; };
+		60DE4811274538B000948BB9 /* TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DE4810274538B000948BB9 /* TableViewDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +38,10 @@
 		60B1260C2744C558002514B7 /* ShoppingListDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListDataProvider.swift; sourceTree = "<group>"; };
 		60B1260F2744C914002514B7 /* ShoppingListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListDataSource.swift; sourceTree = "<group>"; };
 		60DE48042744F12700948BB9 /* AddNewItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewItemView.swift; sourceTree = "<group>"; };
+		60DE4807274529A100948BB9 /* FetchedResultsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchedResultsProvider.swift; sourceTree = "<group>"; };
+		60DE480A274531C500948BB9 /* ManagedObjectType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedObjectType.swift; sourceTree = "<group>"; };
+		60DE480D2745374C00948BB9 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		60DE4810274538B000948BB9 /* TableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,10 +77,14 @@
 				60A236B32743ADB30025261A /* AppDelegate.swift */,
 				60A236B52743ADB30025261A /* SceneDelegate.swift */,
 				60DE48042744F12700948BB9 /* AddNewItemView.swift */,
+				60DE4807274529A100948BB9 /* FetchedResultsProvider.swift */,
+				60DE480A274531C500948BB9 /* ManagedObjectType.swift */,
 				60B1260C2744C558002514B7 /* ShoppingListDataProvider.swift */,
 				60A236B92743ADB30025261A /* Main.storyboard */,
 				60A236C92743AF180025261A /* ShoppingListsTableViewController.swift */,
+				60DE480D2745374C00948BB9 /* Extensions.swift */,
 				60B1260F2744C914002514B7 /* ShoppingListDataSource.swift */,
+				60DE4810274538B000948BB9 /* TableViewDataSource.swift */,
 				60A236CC2743BA2F0025261A /* MyGroceryDataModel.xcdatamodeld */,
 				60A236BC2743ADB40025261A /* Assets.xcassets */,
 				60A236BE2743ADB40025261A /* LaunchScreen.storyboard */,
@@ -158,7 +170,11 @@
 				60A236B62743ADB30025261A /* SceneDelegate.swift in Sources */,
 				60DE48052744F12700948BB9 /* AddNewItemView.swift in Sources */,
 				60B126102744C914002514B7 /* ShoppingListDataSource.swift in Sources */,
+				60DE4811274538B000948BB9 /* TableViewDataSource.swift in Sources */,
+				60DE480B274531C500948BB9 /* ManagedObjectType.swift in Sources */,
+				60DE4808274529A100948BB9 /* FetchedResultsProvider.swift in Sources */,
 				60937A2227442745003A4361 /* CoreDataManager.swift in Sources */,
+				60DE480E2745374C00948BB9 /* Extensions.swift in Sources */,
 				60A236CE2743BA2F0025261A /* MyGroceryDataModel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
