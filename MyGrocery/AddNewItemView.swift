@@ -7,18 +7,15 @@
 
 import UIKit
 
-protocol AddNewItemViewDelegate: class {
-    func addNewItemViewDidAddNewText(text: String)
-}
-
 class AddNewItemView: UIView, UITextFieldDelegate {
     var placeholder: String!
-    weak var delegate: AddNewItemViewDelegate!
+    var addNewItemClosure: (String) -> Void
     
-    init(controller: UIViewController, placeholder: String) {
+    init(controller: UIViewController, placeholder: String, addNewItemClosure: @escaping (String) -> Void) {
+        self.addNewItemClosure = addNewItemClosure
         super.init(frame: controller.view.frame)
-        self.placeholder = placeholder
         
+        self.placeholder = placeholder
         setUp()
     }
     
@@ -39,7 +36,7 @@ class AddNewItemView: UIView, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         if let text = textField.text, !text.isEmpty {
-            delegate.addNewItemViewDidAddNewText(text: text)
+            addNewItemClosure(text)
             textField.text = ""
         }
         

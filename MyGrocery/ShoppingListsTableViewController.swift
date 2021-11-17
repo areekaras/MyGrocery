@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-class ShoppingListsTableViewController: UITableViewController, UITextFieldDelegate, AddNewItemViewDelegate {
+class ShoppingListsTableViewController: UITableViewController, UITextFieldDelegate {
 
     var managedObjectContext: NSManagedObjectContext!
     var dataProvider: ShoppingListDataProvider!
@@ -26,10 +26,6 @@ class ShoppingListsTableViewController: UITableViewController, UITextFieldDelega
         self.tableView.dataSource = self.dataSource
     }
     
-    func addNewItemViewDidAddNewText(text: String) {
-        addNewShoppingList(title: text)
-    }
-    
     private func addNewShoppingList(title: String) {
         let shoppingList = NSEntityDescription.insertNewObject(forEntityName: "ShoppingList", into: self.managedObjectContext) as! ShoppingList
         shoppingList.title = title
@@ -42,8 +38,9 @@ class ShoppingListsTableViewController: UITableViewController, UITextFieldDelega
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let addItemView = AddNewItemView(controller: self, placeholder: "Enter Shopping List")
-        addItemView.delegate = self
+        let addItemView = AddNewItemView(controller: self, placeholder: "Enter Shopping List") { [weak self] title in
+            self?.addNewShoppingList(title: title)
+        }
         return addItemView
     }
 
