@@ -17,6 +17,7 @@
 		60A236CE2743BA2F0025261A /* MyGroceryDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 60A236CC2743BA2F0025261A /* MyGroceryDataModel.xcdatamodeld */; };
 		60B1260D2744C558002514B7 /* ShoppingListDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B1260C2744C558002514B7 /* ShoppingListDataProvider.swift */; };
 		60B126102744C914002514B7 /* ShoppingListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B1260F2744C914002514B7 /* ShoppingListDataSource.swift */; };
+		60DE48052744F12700948BB9 /* AddNewItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DE48042744F12700948BB9 /* AddNewItemView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		60A236CD2743BA2F0025261A /* MyGroceryDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyGroceryDataModel.xcdatamodel; sourceTree = "<group>"; };
 		60B1260C2744C558002514B7 /* ShoppingListDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListDataProvider.swift; sourceTree = "<group>"; };
 		60B1260F2744C914002514B7 /* ShoppingListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListDataSource.swift; sourceTree = "<group>"; };
+		60DE48042744F12700948BB9 /* AddNewItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewItemView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 			children = (
 				60A236B32743ADB30025261A /* AppDelegate.swift */,
 				60A236B52743ADB30025261A /* SceneDelegate.swift */,
+				60DE48042744F12700948BB9 /* AddNewItemView.swift */,
 				60B1260C2744C558002514B7 /* ShoppingListDataProvider.swift */,
 				60A236B92743ADB30025261A /* Main.storyboard */,
 				60A236C92743AF180025261A /* ShoppingListsTableViewController.swift */,
@@ -153,6 +156,7 @@
 				60A236CA2743AF180025261A /* ShoppingListsTableViewController.swift in Sources */,
 				60B1260D2744C558002514B7 /* ShoppingListDataProvider.swift in Sources */,
 				60A236B62743ADB30025261A /* SceneDelegate.swift in Sources */,
+				60DE48052744F12700948BB9 /* AddNewItemView.swift in Sources */,
 				60B126102744C914002514B7 /* ShoppingListDataSource.swift in Sources */,
 				60937A2227442745003A4361 /* CoreDataManager.swift in Sources */,
 				60A236CE2743BA2F0025261A /* MyGroceryDataModel.xcdatamodeld in Sources */,

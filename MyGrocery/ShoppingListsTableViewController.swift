@@ -42,18 +42,8 @@ class ShoppingListsTableViewController: UITableViewController, UITextFieldDelega
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 44))
-        headerView.backgroundColor = .lightText
-        
-        let textField = UITextField(frame: headerView.frame)
-        textField.placeholder = "Enter Shopping List"
-        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
-        textField.leftViewMode = .always
-        textField.delegate = self
-        
-        headerView.addSubview(textField)
-        
-        return headerView
+        let addItemView = AddNewItemView(controller: self, placeholder: "Enter Shopping List")
+        return addItemView
     }
 
     
