@@ -7,12 +7,17 @@
 
 import UIKit
 
-class AddNewItemView: UIView {
-    let placeholder: String
+protocol AddNewItemViewDelegate: class {
+    func addNewItemViewDidAddNewText(text: String)
+}
+
+class AddNewItemView: UIView, UITextFieldDelegate {
+    var placeholder: String!
+    weak var delegate: AddNewItemViewDelegate!
     
     init(controller: UIViewController, placeholder: String) {
-        self.placeholder = placeholder
         super.init(frame: controller.view.frame)
+        self.placeholder = placeholder
         
         setUp()
     }
@@ -25,10 +30,20 @@ class AddNewItemView: UIView {
         textField.placeholder = self.placeholder
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
         textField.leftViewMode = .always
-//        textField.delegate = self
+        textField.delegate = self
         
         headerView.addSubview(textField)
         self.addSubview(headerView)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        if let text = textField.text, !text.isEmpty {
+            delegate.addNewItemViewDidAddNewText(text: text)
+            textField.text = ""
+        }
+        
+        return textField.resignFirstResponder()
     }
     
     required init?(coder: NSCoder) {

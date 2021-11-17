@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-class ShoppingListsTableViewController: UITableViewController, UITextFieldDelegate {
+class ShoppingListsTableViewController: UITableViewController, UITextFieldDelegate, AddNewItemViewDelegate {
 
     var managedObjectContext: NSManagedObjectContext!
     var dataProvider: ShoppingListDataProvider!
@@ -25,17 +25,17 @@ class ShoppingListsTableViewController: UITableViewController, UITextFieldDelega
         self.dataSource = ShoppingListDataSource(cellIdentifier: "ShoppingListTableViewCell", tableView: self.tableView, dataProvider: self.dataProvider)
         self.tableView.dataSource = self.dataSource
     }
-        
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
-        let shoppingList = NSEntityDescription.insertNewObject(forEntityName: "ShoppingList", into: self.managedObjectContext) as! ShoppingList
-        shoppingList.title = textField.text
-        try! self.managedObjectContext.save()
-        textField.text = ""
-        
-        return textField.resignFirstResponder()
+    
+    func addNewItemViewDidAddNewText(text: String) {
+        addNewShoppingList(title: text)
     }
     
+    private func addNewShoppingList(title: String) {
+        let shoppingList = NSEntityDescription.insertNewObject(forEntityName: "ShoppingList", into: self.managedObjectContext) as! ShoppingList
+        shoppingList.title = title
+        try! self.managedObjectContext.save()
+    }
+        
     // MARK:- Table View delegates
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 44
@@ -43,6 +43,7 @@ class ShoppingListsTableViewController: UITableViewController, UITextFieldDelega
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let addItemView = AddNewItemView(controller: self, placeholder: "Enter Shopping List")
+        addItemView.delegate = self
         return addItemView
     }
 
